@@ -1,5 +1,26 @@
-alter table if exists public.profiles drop constraint if exists profiles_id_fkey;
-alter table if exists public.profiles add constraint profiles_id_fkey foreign key (id) references auth.users(id) on delete cascade;
+do $$
+declare
+  constraint_name text;
+begin
+  if to_regclass('public.profiles') is not null then
+    for constraint_name in
+      select c.conname
+      from pg_constraint c
+      join pg_class t on t.oid = c.conrelid
+      join pg_namespace n on n.oid = t.relnamespace
+      where n.nspname = 'public'
+        and t.relname = 'profiles'
+        and c.contype = 'f'
+        and pg_get_constraintdef(c.oid) ilike '%references users%'
+    loop
+      execute format('alter table public.profiles drop constraint if exists %I', constraint_name);
+    end loop;
+  end if;
+end $$;
+
+alter table if exists public.profiles
+  add constraint profiles_id_fkey
+  foreign key (id) references auth.users(id) on delete cascade;
 create or replace function public.is_admin() returns boolean language sql stable security definer set search_path = public as $$ select exists (select 1 from public.profiles where id = auth.uid() and is_admin = true); $$;
 grant execute on function public.is_admin() to anon, authenticated;
 
