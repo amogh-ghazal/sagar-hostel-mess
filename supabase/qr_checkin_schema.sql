@@ -12,3 +12,5 @@ drop policy if exists "Admins can record checkins" on public.checkins;
 create policy "Admins can record checkins" on public.checkins for insert with check (public.is_admin());
 create index if not exists checkins_scanned_at_idx on public.checkins (scanned_at desc);
 create index if not exists resident_profiles_qr_token_idx on public.resident_profiles (qr_token);
+create or replace function public.is_admin() returns boolean language sql stable security definer set search_path = public as $$ select exists (select 1 from public.profiles where id = auth.uid() and is_admin = true); $$;
+grant execute on function public.is_admin() to anon, authenticated;
