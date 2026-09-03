@@ -8,9 +8,9 @@ begin
   execute 'alter table public.profiles add constraint profiles_id_fkey foreign key (id) references auth.users(id) on delete cascade';
 
   insert into public.profiles (id, is_admin)
-  values
-    ('8767880e-bf9a-4b13-a1e0-58803df4b0b9', true),
-    ('35509f91-9299-4d0a-aae1-1d69478cfb62', true)
+  select id, true
+  from auth.users
+  where lower(email) in ('amoghblue333@gmail.com', 'amoghsuresh3@gmail.com')
   on conflict (id) do update set is_admin = true;
 end $$;
 
