@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1d1c18" />
+  <meta name="description" content="Sagar Hostel mess menu and duty schedule" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231d1c18'/><text y='.9em' x='.12em' font-size='78'>🍽</text></svg>">
+  <link rel="stylesheet" href="styles.css" />
+  <title>Sagar Hostel · Mess</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">✦</div><div><strong>SAGAR</strong><span>HOSTEL MESS</span></div></div>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">☼</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">SOE · CUSAT <span class="live-dot"></span></div>
+        <h1>Good food.<br><em>Shared duty.</em></h1>
+        <p>Your hostel week, at a glance.</p>
+        <div class="hero-date"><span id="todayLabel">TODAY</span><b id="heroDay">MONDAY</b><button class="round-arrow" id="nextDay">→</button></div>
+      </section>
+
+      <section class="quick-grid">
+        <div class="quick-card"><span class="quick-icon">☕</span><div><small>BREAKFAST</small><b>8:00 – 8:45 AM</b></div></div>
+        <div class="quick-card"><span class="quick-icon">◷</span><div><small>LUNCH · SOE</small><b>12:05 – 12:50 PM</b></div></div>
+        <div class="quick-card"><span class="quick-icon">☾</span><div><small>DINNER</small><b>7:45 – 8:30 PM</b></div></div>
+      </section>
+
+      <nav class="tabs" aria-label="Sections"><button class="tab active" data-view="menu">Weekly menu</button><button class="tab" data-view="duty">Mess duty</button><button class="tab" data-view="manage">Manage</button></nav>
+
+      <section id="menuView" class="view active-view">
+        <div class="section-heading"><div><div class="eyebrow">WHAT’S COOKING</div><h2>This week’s menu</h2></div><button class="text-btn" id="editMenuBtn">Edit menu</button></div>
+        <div class="week-strip" id="weekStrip"></div>
+        <div class="meal-card" id="mealCard"></div>
+        <div class="note"><span>✦</span><div><b>Mess cut available</b><p>Once a month feast available. Menu can change based on committee preference.</p></div></div>
+      </section>
+
+      <section id="dutyView" class="view">
+        <div class="section-heading"><div><div class="eyebrow">KEEP IT MOVING</div><h2>Mess duty</h2></div><button class="text-btn" id="editDutyBtn">Edit roster</button></div>
+        <div class="duty-intro"><span class="plate-icon">♨</span><div><b id="dutyDayTitle">Monday’s team</b><p>Five residents keeping the mess running today.</p></div></div>
+        <div class="duty-list" id="dutyList"></div>
+        <div class="next-duty"><span>UP NEXT</span><b id="nextDutyText">Tuesday · 5 residents</b><button class="text-btn" id="jumpDuty">View →</button></div>
+      </section>
+
+      <section id="manageView" class="view">
+        <div class="section-heading"><div><div class="eyebrow">SETTINGS</div><h2>Manage mess</h2></div></div>
+        <div class="manage-card"><div><span class="manage-icon">✎</span><b>Edit weekly menu</b><p>Update breakfast, lunch and dinner items.</p></div><button class="gold-btn" id="manageMenuBtn">Open</button></div>
+        <div class="manage-card"><div><span class="manage-icon">♙</span><b>Edit duty roster</b><p>Assign five residents to each day.</p></div><button class="gold-btn" id="manageDutyBtn">Open</button></div>
+        <div class="manage-card"><div><span class="manage-icon">↺</span><b>Reset demo data</b><p>Restore the sample menu and names.</p></div><button class="outline-btn" id="resetBtn">Reset</button></div>
+        <div class="cost-tip"><b>Designed for near-zero hosting cost</b><p>Deploy this static PWA on GitHub Pages, Cloudflare Pages or Netlify’s free tier. No dedicated domain is required; the generated URL works from anywhere and can be added to a phone’s home screen.</p></div>
+      </section>
+    </main>
+    <footer><span>© 2026 SAGAR HOSTEL</span><span>MADE FOR THE MESS</span></footer>
+  </div>
+
+  <dialog id="editDialog"><form method="dialog" id="editForm"><div class="dialog-head"><div><div class="eyebrow">ADMIN MODE</div><h2 id="dialogTitle">Edit menu</h2></div><button class="close-btn" value="cancel" aria-label="Close">×</button></div><div id="formFields"></div><button class="save-btn" value="default">Save changes</button></form></dialog>
+  <div class="toast" id="toast">Saved locally</div>
+  <script src="app.js"></script>
+</body>
+</html>
