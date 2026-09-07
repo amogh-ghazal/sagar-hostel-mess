@@ -13,8 +13,8 @@ insert into public.resident_profiles
   (id, full_name, room_number, access_until, person_type, active)
 select
   id,
-  coalesce(nullif(raw_user_meta_data ->> 'full_name', ''), 'AMOGH'),
-  null,
+  'AMOGH SURESH',
+  '6',
   null,
   'hostel resident',
   true
